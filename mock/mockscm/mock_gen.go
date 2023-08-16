@@ -152,7 +152,7 @@ func (mr *MockGitServiceMockRecorder) CompareChanges(arg0, arg1, arg2, arg3, arg
 }
 
 // CreateBranch mocks base method.
-func (m *MockGitService) CreateBranch(arg0 context.Context, arg1 string, arg2 *scm.CreateBranch) (*scm.Response, error) {
+func (m *MockGitService) CreateBranch(arg0 context.Context, arg1 string, arg2 *scm.ReferenceInput) (*scm.Response, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateBranch", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*scm.Response)
@@ -228,6 +228,22 @@ func (m *MockGitService) ListBranches(arg0 context.Context, arg1 string, arg2 sc
 func (mr *MockGitServiceMockRecorder) ListBranches(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListBranches", reflect.TypeOf((*MockGitService)(nil).ListBranches), arg0, arg1, arg2)
+}
+
+// ListBranchesV2 mocks base method.
+func (m *MockGitService) ListBranchesV2(arg0 context.Context, arg1 string, arg2 scm.BranchListOptions) ([]*scm.Reference, *scm.Response, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListBranchesV2", arg0, arg1, arg2)
+	ret0, _ := ret[0].([]*scm.Reference)
+	ret1, _ := ret[1].(*scm.Response)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// ListBranchesV2 indicates an expected call of ListBranchesV2.
+func (mr *MockGitServiceMockRecorder) ListBranchesV2(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListBranchesV2", reflect.TypeOf((*MockGitService)(nil).ListBranchesV2), arg0, arg1, arg2)
 }
 
 // ListChanges mocks base method.
@@ -709,6 +725,22 @@ func (m *MockRepositoryService) ListStatus(arg0 context.Context, arg1, arg2 stri
 func (mr *MockRepositoryServiceMockRecorder) ListStatus(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListStatus", reflect.TypeOf((*MockRepositoryService)(nil).ListStatus), arg0, arg1, arg2, arg3)
+}
+
+// ListV2 mocks base method.
+func (m *MockRepositoryService) ListV2(arg0 context.Context, arg1 scm.RepoListOptions) ([]*scm.Repository, *scm.Response, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListV2", arg0, arg1)
+	ret0, _ := ret[0].([]*scm.Repository)
+	ret1, _ := ret[1].(*scm.Response)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// ListV2 indicates an expected call of ListV2.
+func (mr *MockRepositoryServiceMockRecorder) ListV2(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListV2", reflect.TypeOf((*MockRepositoryService)(nil).ListV2), arg0, arg1)
 }
 
 // UpdateHook mocks base method.
