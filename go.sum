@@ -90,8 +90,8 @@ github.com/drone/go-license v1.0.2 h1:7OwndfYk+Lp/cGHkxe4HUn/Ysrrw3WYH2pnd99yrko
 github.com/drone/go-license v1.0.2/go.mod h1:fGRHf+F1cEaw3YVYiJ6js3G3dVhcxyS617RnNRUMsms=
 github.com/drone/go-login v1.1.0 h1:anQFRh2Z5ketEJ/LvL6SJ6rIwDdfysGXK5bSXkFLInI=
 github.com/drone/go-login v1.1.0/go.mod h1:FLxy9vRzLbyBxoCJYxGbG9R0WGn6OyuvBmAtYNt43uw=
-github.com/drone/go-scm v1.28.0 h1:Y5SCf01Iw7/VO8hhjNgAX0eGIXZ225ctw7DlGQHh5g4=
-github.com/drone/go-scm v1.28.0/go.mod h1:DFIJJjhMj0TSXPz+0ni4nyZ9gtTtC40Vh/TGRugtyWw=
+github.com/drone/go-scm v1.31.0 h1:MdDpzLay9h4f62ubvFPK7BzV2NlmnNOfC8Vqn5nwO+g=
+github.com/drone/go-scm v1.31.0/go.mod h1:DFIJJjhMj0TSXPz+0ni4nyZ9gtTtC40Vh/TGRugtyWw=
 github.com/drone/signal v1.0.0 h1:NrnM2M/4yAuU/tXs6RP1a1ZfxnaHwYkd0kJurA1p6uI=
 github.com/drone/signal v1.0.0/go.mod h1:S8t92eFT0g4WUgEc/LxG+LCuiskpMNsG0ajAMGnyZpc=
 github.com/dustin/go-humanize v1.0.0 h1:VSnTsYCnlFHaM2/igO1h6X3HA71jcobQuxemgkq4zYo=
