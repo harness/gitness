@@ -69,7 +69,11 @@ func HandleApprove(
 			render.BadRequestf(w, "Cannot approve a Pipeline with Status %q", stage.Status)
 			return
 		}
-		stage.Status = core.StatusPending
+		if len(stage.DependsOn) > 0 {
+			stage.Status = core.StatusWaiting
+		} else {
+			stage.Status = core.StatusPending
+		}
 		err = stages.Update(r.Context(), stage)
 		if err != nil {
 			render.InternalErrorf(w, "There was a problem approving the Pipeline")

@@ -12,9 +12,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/drone/drone/core"
 	"github.com/drone/drone/handler/api/errors"
 	"github.com/drone/drone/mock"
-	"github.com/drone/drone/core"
 
 	"github.com/go-chi/chi"
 	"github.com/golang/mock/gomock"
@@ -440,5 +440,189 @@ func TestApprove_CannotEnqueue(t *testing.T) {
 	json.NewDecoder(w.Body).Decode(got)
 	if diff := cmp.Diff(got, want); len(diff) != 0 {
 		t.Errorf(diff)
+	}
+}
+func TestApprove_ParallelStages(t *testing.T) {
+	controller := gomock.NewController(t)
+	defer controller.Finish()
+
+	mockRepo := &core.Repository{
+		Namespace: "octocat",
+		Name:      "hello-world",
+	}
+	mockBuild := &core.Build{
+		ID:     111,
+		Number: 1,
+		Status: core.StatusPending,
+	}
+	mockStage := &core.Stage{
+		ID:     222,
+		Number: 2,
+		Status: core.StatusBlocked,
+		OS:     "linux",
+		Arch:   "arm",
+	}
+	mockStage2 := &core.Stage{
+		ID:     333,
+		Number: 3,
+		Status: core.StatusBlocked,
+		OS:     "linux",
+		Arch:   "arm",
+	}
+
+	checkPendingStage := func(_ context.Context, stage *core.Stage) error {
+		if stage.Status != core.StatusPending {
+			t.Errorf("Want stage status changed to Pending")
+		}
+		return nil
+	}
+
+	repos := mock.NewMockRepositoryStore(controller)
+	repos.EXPECT().FindName(gomock.Any(), mockRepo.Namespace, mockRepo.Name).Return(mockRepo, nil).Times(2)
+
+	builds := mock.NewMockBuildStore(controller)
+	builds.EXPECT().FindNumber(gomock.Any(), mockRepo.ID, mockBuild.Number).Return(mockBuild, nil).Times(2)
+
+	stages := mock.NewMockStageStore(controller)
+	stages.EXPECT().FindNumber(gomock.Any(), mockBuild.ID, mockStage.Number).Return(mockStage, nil)
+	stages.EXPECT().Update(gomock.Any(), mockStage).Return(nil).Do(checkPendingStage)
+
+	stages.EXPECT().FindNumber(gomock.Any(), mockBuild.ID, mockStage2.Number).Return(mockStage2, nil)
+	stages.EXPECT().Update(gomock.Any(), mockStage2).Return(nil).Do(checkPendingStage)
+
+	sched := mock.NewMockScheduler(controller)
+	sched.EXPECT().Schedule(gomock.Any(), mockStage).Return(nil)
+	sched.EXPECT().Schedule(gomock.Any(), mockStage2).Return(nil)
+
+	c := new(chi.Context)
+	c.URLParams.Add("owner", "octocat")
+	c.URLParams.Add("name", "hello-world")
+	c.URLParams.Add("number", "1")
+	c.URLParams.Add("stage", "2")
+
+	w := httptest.NewRecorder()
+	r := httptest.NewRequest("GET", "/", nil)
+	r = r.WithContext(
+		context.WithValue(context.Background(), chi.RouteCtxKey, c),
+	)
+
+	HandleApprove(repos, builds, stages, sched)(w, r)
+	if got, want := w.Code, 204; want != got {
+		t.Errorf("Want response code %d, got %d", want, got)
+	}
+
+	// now approve the second stage
+	c2 := new(chi.Context)
+	c2.URLParams.Add("owner", "octocat")
+	c2.URLParams.Add("name", "hello-world")
+	c2.URLParams.Add("number", "1")
+	c2.URLParams.Add("stage", "3")
+
+	w = httptest.NewRecorder()
+	r = httptest.NewRequest("GET", "/", nil)
+	r = r.WithContext(
+		context.WithValue(context.Background(), chi.RouteCtxKey, c2),
+	)
+
+	HandleApprove(repos, builds, stages, sched)(w, r)
+	if got, want := w.Code, 204; want != got {
+		t.Errorf("Want response code %d, got %d", want, got)
+	}
+}
+
+// test for a build that has 2 parallel stages, and we approve both of them
+func TestApprove_DependantStages(t *testing.T) {
+	controller := gomock.NewController(t)
+	defer controller.Finish()
+
+	mockRepo := &core.Repository{
+		Namespace: "octocat",
+		Name:      "hello-world",
+	}
+	mockBuild := &core.Build{
+		ID:     111,
+		Number: 1,
+		Status: core.StatusPending,
+	}
+	mockStage := &core.Stage{
+		ID:     222,
+		Number: 2,
+		Status: core.StatusBlocked,
+		OS:     "linux",
+		Arch:   "arm",
+	}
+	mockStage2 := &core.Stage{
+		ID:        333,
+		Number:    3,
+		Status:    core.StatusBlocked,
+		OS:        "linux",
+		Arch:      "arm",
+		DependsOn: []string{"2"},
+	}
+
+	checkPendingStage := func(_ context.Context, stage *core.Stage) error {
+		if stage.Status != core.StatusPending {
+			t.Errorf("Want stage status changed to Pending")
+		}
+		return nil
+	}
+
+	checkWaitingStage := func(_ context.Context, stage *core.Stage) error {
+		if stage.Status != core.StatusWaiting {
+			t.Errorf("Want stage status changed to waiting")
+		}
+		return nil
+	}
+
+	repos := mock.NewMockRepositoryStore(controller)
+	repos.EXPECT().FindName(gomock.Any(), mockRepo.Namespace, mockRepo.Name).Return(mockRepo, nil).Times(2)
+
+	builds := mock.NewMockBuildStore(controller)
+	builds.EXPECT().FindNumber(gomock.Any(), mockRepo.ID, mockBuild.Number).Return(mockBuild, nil).Times(2)
+
+	stages := mock.NewMockStageStore(controller)
+	stages.EXPECT().FindNumber(gomock.Any(), mockBuild.ID, mockStage.Number).Return(mockStage, nil)
+	stages.EXPECT().Update(gomock.Any(), mockStage).Return(nil).Do(checkPendingStage)
+
+	stages.EXPECT().FindNumber(gomock.Any(), mockBuild.ID, mockStage2.Number).Return(mockStage2, nil)
+	stages.EXPECT().Update(gomock.Any(), mockStage2).Return(nil).Do(checkWaitingStage)
+
+	sched := mock.NewMockScheduler(controller)
+	sched.EXPECT().Schedule(gomock.Any(), mockStage).Return(nil)
+	sched.EXPECT().Schedule(gomock.Any(), mockStage2).Return(nil)
+
+	c := new(chi.Context)
+	c.URLParams.Add("owner", "octocat")
+	c.URLParams.Add("name", "hello-world")
+	c.URLParams.Add("number", "1")
+	c.URLParams.Add("stage", "2")
+
+	w := httptest.NewRecorder()
+	r := httptest.NewRequest("GET", "/", nil)
+	r = r.WithContext(
+		context.WithValue(context.Background(), chi.RouteCtxKey, c),
+	)
+
+	HandleApprove(repos, builds, stages, sched)(w, r)
+	if got, want := w.Code, 204; want != got {
+		t.Errorf("Want response code %d, got %d", want, got)
+	}
+
+	// now approve the second stage
+	c2 := new(chi.Context)
+	c2.URLParams.Add("owner", "octocat")
+	c2.URLParams.Add("name", "hello-world")
+	c2.URLParams.Add("number", "1")
+	c2.URLParams.Add("stage", "3")
+
+	w = httptest.NewRecorder()
+	r = httptest.NewRequest("GET", "/", nil)
+	r = r.WithContext(
+		context.WithValue(context.Background(), chi.RouteCtxKey, c2),
+	)
+
+	HandleApprove(repos, builds, stages, sched)(w, r)
+	if got, want := w.Code, 204; want != got {
+		t.Errorf("Want response code %d, got %d", want, got)
 	}
 }

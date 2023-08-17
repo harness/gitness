@@ -353,6 +353,7 @@ type (
 		Server       string   `envconfig:"DRONE_GITEA_SERVER"`
 		ClientID     string   `envconfig:"DRONE_GITEA_CLIENT_ID"`
 		ClientSecret string   `envconfig:"DRONE_GITEA_CLIENT_SECRET"`
+		RedirectURL  string   `envconfig:"DRONE_GITEA_REDIRECT_URL"`
 		SkipVerify   bool     `envconfig:"DRONE_GITEA_SKIP_VERIFY"`
 		Scope        []string `envconfig:"DRONE_GITEA_SCOPE" default:"repo,repo:status,user:email,read:org"`
 		Debug        bool     `envconfig:"DRONE_GITEA_DEBUG"`

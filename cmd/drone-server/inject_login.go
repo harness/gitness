@@ -116,13 +116,17 @@ func provideGiteaLogin(config config.Config) login.Middleware {
 	if config.Gitea.Server == "" {
 		return nil
 	}
+	redirectURL := config.Gitea.RedirectURL
+	if redirectURL == "" {
+		redirectURL = config.Server.Addr + "/login"
+	}
 	return &gitea.Config{
 		ClientID:     config.Gitea.ClientID,
 		ClientSecret: config.Gitea.ClientSecret,
 		Server:       config.Gitea.Server,
 		Client:       defaultClient(config.Gitea.SkipVerify),
 		Logger:       logrus.StandardLogger(),
-		RedirectURL:  config.Server.Addr + "/login",
+		RedirectURL:  redirectURL,
 		Scope:        config.Gitea.Scope,
 	}
 }
