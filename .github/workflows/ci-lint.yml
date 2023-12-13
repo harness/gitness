@@ -29,8 +29,8 @@ jobs:
         working-directory: web
         run: |
           yarn install
-          yarn check:all
           yarn build
+          yarn check:all
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
