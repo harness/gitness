@@ -163,7 +163,7 @@ type Server struct {
 // Handler returns an http.Handler
 func (s Server) Handler() http.Handler {
 	r := chi.NewRouter()
-	m := chiprometheus.NewMiddleware("api")
+	m := chiprometheus.NewPatternMiddleware("api")
 	r.Use(m)
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.NoCache)

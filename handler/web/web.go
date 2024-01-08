@@ -25,7 +25,6 @@ import (
 	"github.com/drone/go-login/login"
 	"github.com/drone/go-scm/scm"
 
-	chiprometheus "github.com/766b/chi-prometheus"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/unrolled/secure"
@@ -95,8 +94,6 @@ type Server struct {
 // Handler returns an http.Handler
 func (s Server) Handler() http.Handler {
 	r := chi.NewRouter()
-	m := chiprometheus.NewMiddleware("web")
-	r.Use(m)
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.NoCache)
 	r.Use(logger.Middleware)
