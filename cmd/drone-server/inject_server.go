@@ -17,7 +17,6 @@ package main
 import (
 	"net/http"
 
-	chiprometheus "github.com/766b/chi-prometheus"
 	"github.com/drone/drone/cmd/drone-server/config"
 	"github.com/drone/drone/core"
 	"github.com/drone/drone/handler/api"
@@ -29,9 +28,10 @@ import (
 	"github.com/drone/drone/operator/manager/rpc2"
 	"github.com/drone/drone/server"
 	"github.com/google/wire"
+	"github.com/yarlson/chiprom"
 
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/unrolled/secure"
 )
 
@@ -62,8 +62,7 @@ var serverSet = wire.NewSet(
 // router that is serves the provided handlers.
 func provideRouter(api api.Server, web web.Server, rpcv1 rpcHandlerV1, rpcv2 rpcHandlerV2, healthz healthzHandler, metrics *metric.Server, pprof pprofHandler) *chi.Mux {
 	r := chi.NewRouter()
-	m := chiprometheus.NewMiddleware("server")
-	r.Use(m)
+	r.Use(chiprom.NewMiddleware("server"))
 	r.Mount("/healthz", healthz)
 	r.Mount("/metrics", metrics)
 	r.Mount("/api", api.Handler())

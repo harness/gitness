@@ -23,7 +23,7 @@ import (
 	"github.com/drone/drone/handler/api/request"
 	"github.com/drone/drone/logger"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/sirupsen/logrus"
 )
 

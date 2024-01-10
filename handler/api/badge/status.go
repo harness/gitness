@@ -22,7 +22,7 @@ import (
 
 	"github.com/drone/drone/core"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 )
 
 // Handler returns an http.HandlerFunc that writes an svg status

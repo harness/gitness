@@ -16,7 +16,7 @@ import (
 	"github.com/drone/drone/mock"
 	"github.com/sirupsen/logrus"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/golang/mock/gomock"
 	"github.com/google/go-cmp/cmp"
 )
