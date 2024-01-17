@@ -170,6 +170,7 @@ type (
 	// Prometheus provides the prometheus configuration.
 	Prometheus struct {
 		EnableAnonymousAccess bool `envconfig:"DRONE_PROMETHEUS_ANONYMOUS_ACCESS" default:"false"`
+		EnableHTTPMetrics     bool `envconfig:"DRONE_PROMETHEUS_HTTP_METRICS" default:"false"`
 	}
 
 	// Redis provides the redis configuration.

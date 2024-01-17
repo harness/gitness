@@ -60,10 +60,12 @@ var serverSet = wire.NewSet(
 
 // provideRouter is a Wire provider function that returns a
 // router that is serves the provided handlers.
-func provideRouter(api api.Server, web web.Server, rpcv1 rpcHandlerV1, rpcv2 rpcHandlerV2, healthz healthzHandler, metrics *metric.Server, pprof pprofHandler) *chi.Mux {
+func provideRouter(api api.Server, web web.Server, rpcv1 rpcHandlerV1, rpcv2 rpcHandlerV2, healthz healthzHandler, metrics *metric.Server, pprof pprofHandler, config config.Config) *chi.Mux {
 	r := chi.NewRouter()
-	m := chiprometheus.NewMiddleware("server")
-	r.Use(m)
+	if config.Prometheus.EnableHTTPMetrics {
+		m := chiprometheus.NewPatternMiddleware("server")
+		r.Use(m)
+	}
 	r.Mount("/healthz", healthz)
 	r.Mount("/metrics", metrics)
 	r.Mount("/api", api.Handler())

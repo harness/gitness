@@ -18,7 +18,6 @@ import (
 	"net/http"
 	"os"
 
-	chiprometheus "github.com/766b/chi-prometheus"
 	"github.com/drone/drone/core"
 	"github.com/drone/drone/handler/api/acl"
 	"github.com/drone/drone/handler/api/auth"
@@ -163,8 +162,6 @@ type Server struct {
 // Handler returns an http.Handler
 func (s Server) Handler() http.Handler {
 	r := chi.NewRouter()
-	m := chiprometheus.NewMiddleware("api")
-	r.Use(m)
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.NoCache)
 	r.Use(logger.Middleware)
