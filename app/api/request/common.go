@@ -58,7 +58,7 @@ func GetOptionalRemainderFromPath(r *http.Request) string {
 	return PathParamOrEmpty(r, PathParamRemainder)
 }
 
-// GetRemainderFromPath returns the remainder ("*") from the path or an an error if it doesn't exist.
+// GetRemainderFromPath returns the remainder ("*") from the path or an error if it doesn't exist.
 func GetRemainderFromPath(r *http.Request) (string, error) {
 	return PathParamOrError(r, PathParamRemainder)
 }
