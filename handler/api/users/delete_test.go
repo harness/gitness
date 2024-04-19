@@ -13,7 +13,7 @@ import (
 
 	"github.com/drone/drone/mock"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/golang/mock/gomock"
 )
 

@@ -24,7 +24,7 @@ import (
 	"github.com/drone/drone/logger"
 
 	"github.com/dchest/uniuri"
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 )
 
 // FEATURE FLAG enables a static secret value used to sign

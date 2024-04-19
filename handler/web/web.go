@@ -18,6 +18,7 @@ import (
 	"net/http"
 
 	"github.com/drone/drone-ui/dist"
+	"github.com/yarlson/chiprom"
 
 	"github.com/drone/drone/core"
 	"github.com/drone/drone/handler/web/link"
@@ -25,9 +26,8 @@ import (
 	"github.com/drone/go-login/login"
 	"github.com/drone/go-scm/scm"
 
-	chiprometheus "github.com/766b/chi-prometheus"
-	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/chi/v5"
 	"github.com/unrolled/secure"
 )
 
@@ -95,8 +95,7 @@ type Server struct {
 // Handler returns an http.Handler
 func (s Server) Handler() http.Handler {
 	r := chi.NewRouter()
-	m := chiprometheus.NewMiddleware("web")
-	r.Use(m)
+	r.Use(chiprom.NewMiddleware("web"))
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.NoCache)
 	r.Use(logger.Middleware)
@@ -137,7 +136,7 @@ func (s Server) Handler() http.Handler {
 	r.Handle("/favicon.png", h)
 	r.Handle("/manifest.json", h)
 	r.Handle("/asset-manifest.json", h)
-	r.Handle("/static/*filepath", h)
+	r.Handle("/static/*", h)
 	r.NotFound(HandleIndex(s.Host, s.Session, s.Licenses))
 
 	return r

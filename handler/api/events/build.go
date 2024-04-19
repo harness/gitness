@@ -25,7 +25,7 @@ import (
 	"github.com/drone/drone/logger"
 	"github.com/sirupsen/logrus"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 )
 
 // interval at which the client is pinged to prevent

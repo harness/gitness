@@ -22,7 +22,7 @@ import (
 	"github.com/drone/drone/handler/api/request"
 	"github.com/drone/go-scm/scm"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 )
 
 // HandleCreate returns an http.HandlerFunc that processes http

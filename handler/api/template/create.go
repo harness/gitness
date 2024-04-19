@@ -2,6 +2,7 @@
 // Use of this source code is governed by the Drone Non-Commercial License
 // that can be found in the LICENSE file.
 
+//go:build !oss
 // +build !oss
 
 package template
@@ -15,7 +16,7 @@ import (
 	"github.com/drone/drone/handler/api/errors"
 	"github.com/drone/drone/handler/api/render"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 )
 
 var (

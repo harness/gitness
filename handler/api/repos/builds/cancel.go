@@ -24,7 +24,7 @@ import (
 	"github.com/drone/drone/handler/api/render"
 	"github.com/drone/drone/logger"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 )
 
 // HandleCancel returns an http.HandlerFunc that processes http

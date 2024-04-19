@@ -10,11 +10,11 @@ package rpc2
 import (
 	"net/http"
 
-	chiprometheus "github.com/766b/chi-prometheus"
 	"github.com/drone/drone/operator/manager"
+	"github.com/yarlson/chiprom"
 
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 // Server wraps the chi Router in a custom type for wire
@@ -25,8 +25,7 @@ type Server http.Handler
 // interaction with the build controller using the http transport.
 func NewServer(manager manager.BuildManager, secret string) Server {
 	r := chi.NewRouter()
-	m := chiprometheus.NewMiddleware("drone")
-	r.Use(m)
+	r.Use(chiprom.NewMiddleware("drone"))
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.NoCache)
 	r.Use(authorization(secret))

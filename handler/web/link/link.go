@@ -20,7 +20,7 @@ import (
 	"github.com/drone/drone/core"
 	"github.com/drone/go-scm/scm"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 )
 
 // HandleCommit returns an http.HandlerFunc that redirects the

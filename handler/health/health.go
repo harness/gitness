@@ -18,8 +18,8 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 // New returns a new health check router.
@@ -40,4 +40,3 @@ func Handler() http.HandlerFunc {
 		io.WriteString(w, "OK")
 	}
 }
-

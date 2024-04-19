@@ -23,7 +23,7 @@ import (
 	"github.com/drone/drone/logger"
 	"github.com/drone/go-scm/scm"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 )
 
 // HandleRepo returns an http.HandlerFunc that writes a json-encoded

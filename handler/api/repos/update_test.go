@@ -16,7 +16,7 @@ import (
 	"github.com/drone/drone/handler/api/errors"
 	"github.com/drone/drone/mock"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/golang/mock/gomock"
 	"github.com/google/go-cmp/cmp"
 )
@@ -226,23 +226,23 @@ func TestUpdateAutoCancelRunning(t *testing.T) {
 	defer controller.Finish()
 
 	repo := &core.Repository{
-		ID:         1,
-		UserID:     1,
-		Namespace:  "octocat",
-		Name:       "hello-world",
-		Slug:       "octocat/hello-world",
-		Branch:     "master",
-		Private:    false,
-		Visibility: core.VisibilityPrivate,
-		HTTPURL:    "https://github.com/octocat/hello-world.git",
-		SSHURL:     "git@github.com:octocat/hello-world.git",
-		Link:       "https://github.com/octocat/hello-world",
+		ID:            1,
+		UserID:        1,
+		Namespace:     "octocat",
+		Name:          "hello-world",
+		Slug:          "octocat/hello-world",
+		Branch:        "master",
+		Private:       false,
+		Visibility:    core.VisibilityPrivate,
+		HTTPURL:       "https://github.com/octocat/hello-world.git",
+		SSHURL:        "git@github.com:octocat/hello-world.git",
+		Link:          "https://github.com/octocat/hello-world",
 		CancelRunning: false,
 	}
 
 	repoInput := &core.Repository{
 		CancelRunning: true,
-		Visibility: core.VisibilityPrivate,
+		Visibility:    core.VisibilityPrivate,
 	}
 
 	shouldBeValue := true
@@ -275,17 +275,17 @@ func TestUpdateAutoCancelRunning(t *testing.T) {
 	}
 
 	got, want := new(core.Repository), &core.Repository{
-		ID:         1,
-		UserID:     1,
-		Namespace:  "octocat",
-		Name:       "hello-world",
-		Slug:       "octocat/hello-world",
-		Branch:     "master",
-		Private:    false,
-		Visibility: core.VisibilityPrivate,
-		HTTPURL:    "https://github.com/octocat/hello-world.git",
-		SSHURL:     "git@github.com:octocat/hello-world.git",
-		Link:       "https://github.com/octocat/hello-world",
+		ID:            1,
+		UserID:        1,
+		Namespace:     "octocat",
+		Name:          "hello-world",
+		Slug:          "octocat/hello-world",
+		Branch:        "master",
+		Private:       false,
+		Visibility:    core.VisibilityPrivate,
+		HTTPURL:       "https://github.com/octocat/hello-world.git",
+		SSHURL:        "git@github.com:octocat/hello-world.git",
+		Link:          "https://github.com/octocat/hello-world",
 		CancelRunning: true,
 	}
 	json.NewDecoder(w.Body).Decode(got)

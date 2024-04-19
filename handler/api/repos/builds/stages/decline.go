@@ -22,7 +22,7 @@ import (
 	"github.com/drone/drone/core"
 	"github.com/drone/drone/handler/api/render"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 )
 
 // HandleDecline returns an http.HandlerFunc that processes http
