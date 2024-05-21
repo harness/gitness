@@ -153,7 +153,7 @@ func linkEnviron(repo *core.Repository, build *core.Build, system *core.System) 
 
 // regular expression to extract the pull request number
 // from the git ref (e.g. refs/pulls/{d}/head)
-var re = regexp.MustCompile("\\d+")
+var re = regexp.MustCompile(`\d+`)
 
 // helper function combines one or more maps of environment
 // variables into a single map.
