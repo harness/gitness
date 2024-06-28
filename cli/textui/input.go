@@ -77,7 +77,7 @@ func Email() string {
 // Password returns the password from stdin.
 func Password() string {
 	fmt.Print("Enter Password: ")
-	passwordb, _ := term.ReadPassword(syscall.Stdin)
+	passwordb, _ := term.ReadPassword(int(syscall.Stdin))
 	password := string(passwordb)
 
 	return strings.TrimSpace(password)
