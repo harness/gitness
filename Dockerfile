@@ -1,7 +1,7 @@
 # ---------------------------------------------------------#
 #                     Build web image                      #
 # ---------------------------------------------------------#
-FROM --platform=$BUILDPLATFORM node:16 as web
+FROM --platform=$BUILDPLATFORM node:18 as web
 
 WORKDIR /usr/src/app
 
