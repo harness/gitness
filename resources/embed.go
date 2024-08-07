@@ -45,12 +45,14 @@ func ReadLicense(name string) ([]byte, error) {
 // GitIgnores lists all files in gitignore folder and return file names.
 func GitIgnores() ([]string, error) {
 	entries, err := gitignore.ReadDir("gitignore")
-	files := make([]string, len(entries))
 	if err != nil {
 		return []string{}, err
 	}
-	for i, filename := range entries {
-		files[i] = strings.ReplaceAll(filename.Name(), ".gitignore", "")
+	var files []string
+	for _, filename := range entries {
+		if strings.HasSuffix(filename.Name(), ".gitignore") {
+			files = append(files, strings.ReplaceAll(filename.Name(), ".gitignore", ""))
+		}
 	}
 	return files, nil
 }
