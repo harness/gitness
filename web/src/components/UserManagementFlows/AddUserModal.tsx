@@ -36,7 +36,7 @@ import * as Yup from 'yup'
 import { useModalHook } from 'hooks/useModalHook'
 import { useStrings } from 'framework/strings'
 import { OpenapiAdminUsersCreateRequest, TypesUser, useAdminCreateUser, useAdminUpdateUser } from 'services/code'
-import { generateAlphaNumericHash, getErrorMessage, REGEX_VALID_REPO_NAME } from 'utils/Utils'
+import { generateAlphaNumericHash, getErrorMessage, REGEX_VALID_USER_ID } from 'utils/Utils'
 import { CodeIcon } from 'utils/GitUtils'
 import { CopyButton } from 'components/CopyButton/CopyButton'
 
@@ -112,7 +112,7 @@ const useAddUserModal = ({ onClose }: { onClose: () => Promise<void> }) => {
           validationSchema={Yup.object().shape({
             uid: Yup.string()
               .required(getString('validation.uidRequired'))
-              .matches(REGEX_VALID_REPO_NAME, getString('validation.uidInvalid')),
+              .matches(REGEX_VALID_USER_ID, getString('validation.uidInvalid')),
             email: Yup.string()
               .required(getString('validation.emailRequired'))
               .email(getString('validation.emailInvalid')),

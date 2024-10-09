@@ -135,7 +135,7 @@ validation:
   repoNamePatternIsNotValid: Registry name should be 1~255 characters long with lower case characters, numbers and ._- and must be start with numbers or characters
   gitBranchNameInvalid: Branch name is invalid.
   gitTagNameInvalid: Tag name is invalid.
-  uidInvalid: User ID can only contain alphanumerics, '-', '_', '.', and '$'
+  uidInvalid: User ID can only contain alphanumerics, '-', '_' and '.'
   nameInvalid: Name can only contain alphanumerics, '-', '_', '.', and '$'
   emailInvalid: Please input valid email address
   emailRequired: Email is required
