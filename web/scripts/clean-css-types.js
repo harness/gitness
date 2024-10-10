@@ -42,7 +42,7 @@ console.log(`Found ${files.length} '.css.d.ts' files`);
 let i = 0;
 
 files.forEach(file => {
-  // for every '.css' there will be a coresponding '.css.d.ts' file and vice versa
+  // for every '.css' there will be a corresponding '.css.d.ts' file and vice versa
   const cssFile = file.replace('.d.ts', '');
 
   if (!fs.existsSync(cssFile)) {

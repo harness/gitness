@@ -150,7 +150,7 @@ export interface StringsMap {
   cancelImportConfirm: string
   cancelledImport: string
   changePassword: string
-  changePasswordSuccesfully: string
+  changePasswordSuccessfully: string
   changeRepoVis: string
   changeRepoVisContent: string
   changeRole: string

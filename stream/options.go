@@ -46,7 +46,7 @@ func (f consumerOptionFunc) apply(config *ConsumerConfig) {
 // WithConcurrency sets up the concurrency of the stream consumer.
 func WithConcurrency(concurrency int) ConsumerOption {
 	if concurrency < 1 || concurrency > MaxConcurrency {
-		// missconfiguration - panic to keep options clean
+		// misconfiguration - panic to keep options clean
 		panic(fmt.Sprintf("provided concurrency %d is invalid - has to be between 1 and %d",
 			concurrency, MaxConcurrency))
 	}
@@ -80,7 +80,7 @@ func (f handlerOptionFunc) apply(config *HandlerConfig) {
 // WithMaxRetries can be used to set the max retry count for a specific handler.
 func WithMaxRetries(maxRetries int) HandlerOption {
 	if maxRetries < 0 || maxRetries > MaxMaxRetries {
-		// missconfiguration - panic to keep options clean
+		// misconfiguration - panic to keep options clean
 		panic(fmt.Sprintf("provided maxRetries %d is invalid - has to be between 0 and %d", maxRetries, MaxMaxRetries))
 	}
 	return handlerOptionFunc(func(c *HandlerConfig) {
@@ -91,7 +91,7 @@ func WithMaxRetries(maxRetries int) HandlerOption {
 // WithIdleTimeout can be used to set the idle timeout for a specific handler.
 func WithIdleTimeout(timeout time.Duration) HandlerOption {
 	if timeout < MinIdleTimeout {
-		// missconfiguration - panic to keep options clean
+		// misconfiguration - panic to keep options clean
 		panic(fmt.Sprintf("provided timeout %d is invalid - has to be longer than %s", timeout, MinIdleTimeout))
 	}
 	return handlerOptionFunc(func(c *HandlerConfig) {

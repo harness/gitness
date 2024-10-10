@@ -94,7 +94,7 @@ func (c *Controller) Create(
 			return nil, fmt.Errorf("failed to set space public access (and space purge: %w): %w", dErr, err)
 		}
 
-		return nil, fmt.Errorf("failed to set space public access (succesfull cleanup): %w", err)
+		return nil, fmt.Errorf("failed to set space public access (successful cleanup): %w", err)
 	}
 
 	return GetSpaceOutput(ctx, c.publicAccess, space)

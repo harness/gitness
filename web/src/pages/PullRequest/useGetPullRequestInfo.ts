@@ -29,12 +29,12 @@ import { normalizeGitRef } from 'utils/GitUtils'
 /**
  * This hook abstracts data handling for a pull request. It's used as a
  * centralized data store for all tabs in Pull Request page. The hook
- * fetches neccessary repository metadata, poll/refetch request metadata
+ * fetches necessary repository metadata, poll/refetch request metadata
  * for updates, cache data, etc...
  *
  * We use Atom to reduce React rendering cycles. Data could be re-fetched,
  * but their reference only updated only if the incoming one is different
- * from cache. This optimization reduces unneccessary React state updates,
+ * from cache. This optimization reduces unnecessary React state updates,
  * hence improves rendering pipeline.
  *
  * The abstraction allows Pull Request tabs to do less data handling and

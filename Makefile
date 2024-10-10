@@ -91,7 +91,7 @@ ar-clean:
 ###############################################################################
 
 format: tools # Format go code and error if any changes are made
-	@echo "Formating ..."
+	@echo "Formatting ..."
 	@goimports -w .
 	@gci write --skip-generated --custom-order -s standard -s "prefix(github.com/harness/gitness)" -s default -s blank -s dot .
 	@echo "Formatting complete"

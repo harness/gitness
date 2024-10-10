@@ -43,7 +43,7 @@ sessionDuration: Last Started
 lastActivated: Last Activated
 deleteGitspaceTitle: Delete Gitspace '{{name}}'
 deleteGitspaceText: 'This action cannot be undone. Are you sure you want to proceed to delete?'
-deleteSuccess: Gitspace deleted succesfully
+deleteSuccess: Gitspace deleted successfully
 repositoryAndBranch: Repository & Branch
 importInto: Import Repository into Gitness
 status: Status

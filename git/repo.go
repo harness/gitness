@@ -515,7 +515,7 @@ func (s *Service) GetRepositorySize(
 	}, nil
 }
 
-// UpdateDefaultBranch updates the default barnch of the repo.
+// UpdateDefaultBranch updates the default branch of the repo.
 func (s *Service) UpdateDefaultBranch(
 	ctx context.Context,
 	params *UpdateDefaultBranchParams,

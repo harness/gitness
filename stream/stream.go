@@ -46,7 +46,7 @@ type ConsumerConfig struct {
 // HandlerConfig defines the configuration for a single stream handler containing externally exposed values
 // that can be configured using the available HandlerOptions.
 type HandlerConfig struct {
-	// idleTimeout specifies the maximum duration a message stays read but unacknowleged
+	// idleTimeout specifies the maximum duration a message stays read but unacknowledged
 	// before it can be claimed by others.
 	idleTimeout time.Duration
 

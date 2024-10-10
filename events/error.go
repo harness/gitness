@@ -24,7 +24,7 @@ var (
 )
 
 // discardEventError is an error which, if returned by the event handler,
-// causes the source event to be discarded despite any erros.
+// causes the source event to be discarded despite any errors.
 type discardEventError struct {
 	inner error
 }

@@ -44,7 +44,7 @@ import {
   makeDiffRefs
 } from 'utils/GitUtils'
 import { useStrings } from 'framework/strings'
-import { filenameToLanguage, FILE_SEPERATOR } from 'utils/Utils'
+import { filenameToLanguage, FILE_SEPARATOR } from 'utils/Utils'
 import { useGetResourceContent } from 'hooks/useGetResourceContent'
 import { CommitModalButton } from 'components/CommitModalButton/CommitModalButton'
 import { DiffEditor } from 'components/SourceCodeEditor/MonacoSourceCodeEditor'
@@ -63,7 +63,7 @@ function Editor({ resourceContent, repoMetadata, gitRef, resourcePath, isReposit
   const isNew = useMemo(() => !resourceContent || isDir(resourceContent), [resourceContent])
   const [fileName, setFileName] = useState(isNew ? '' : resourceContent?.name || '')
   const [parentPath, setParentPath] = useState(
-    isNew ? resourcePath : resourcePath.split(FILE_SEPERATOR).slice(0, -1).join(FILE_SEPERATOR)
+    isNew ? resourcePath : resourcePath.split(FILE_SEPARATOR).slice(0, -1).join(FILE_SEPARATOR)
   )
   const { getString } = useStrings()
   const { routes } = useAppContext()
@@ -73,7 +73,7 @@ function Editor({ resourceContent, repoMetadata, gitRef, resourcePath, isReposit
   )
   const [content, setContent] = useState(originalContent)
   const fileResourcePath = useMemo(
-    () => [(parentPath || '').trim(), (fileName || '').trim()].filter(p => !!p.trim()).join(FILE_SEPERATOR),
+    () => [(parentPath || '').trim(), (fileName || '').trim()].filter(p => !!p.trim()).join(FILE_SEPARATOR),
     [parentPath, fileName]
   )
   const { data: folderContent, refetch: verifyFolder } = useGetResourceContent({
@@ -90,14 +90,14 @@ function Editor({ resourceContent, repoMetadata, gitRef, resourcePath, isReposit
   )
   const [startVerifyFolder, setStartVerifyFolder] = useState(false)
   const rebuildPaths = useCallback(() => {
-    const _tokens = fileName.split(FILE_SEPERATOR).filter(part => !!part.trim())
+    const _tokens = fileName.split(FILE_SEPARATOR).filter(part => !!part.trim())
     const _fileName = ((_tokens.pop() as string) || '').trim()
     const _parentPath = parentPath
-      .split(FILE_SEPERATOR)
+      .split(FILE_SEPARATOR)
       .concat(_tokens)
       .map(p => p.trim())
       .filter(part => !!part.trim())
-      .join(FILE_SEPERATOR)
+      .join(FILE_SEPARATOR)
 
     if (_fileName) {
       const normalizedFilename = _fileName.trim()
@@ -203,7 +203,7 @@ function Editor({ resourceContent, repoMetadata, gitRef, resourcePath, isReposit
               }}
               onBlur={rebuildPaths}
               onFocus={({ target }) => {
-                const value = (parentPath ? parentPath + FILE_SEPERATOR : '') + fileName
+                const value = (parentPath ? parentPath + FILE_SEPARATOR : '') + fileName
                 setFileName(value)
                 setParentPath('')
                 setTimeout(() => {

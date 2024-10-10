@@ -56,7 +56,7 @@ const ChangePassword = () => {
         password: values.newPassword
       })
 
-      showSuccess(getString('changePasswordSuccesfully'))
+      showSuccess(getString('changePasswordSuccessfully'))
       history.goBack()
     } catch (error) {
       showError(getErrorMessage(error))

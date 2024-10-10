@@ -58,7 +58,7 @@ type Config struct {
 
 		// Git defines the external URL via which the GIT API is reachable.
 		// NOTE: for routing to work properly, the request path & hostname reaching gitness
-		// have to statisfy at least one of the following two conditions:
+		// have to satisfy at least one of the following two conditions:
 		// - Path ends with `/git`
 		// - Hostname is different to API hostname
 		// (this could be after proxy path / header rewrite).

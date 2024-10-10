@@ -52,7 +52,7 @@ func newTokensCleanupJob(
 
 // Handle purges old token that are expired.
 func (j *tokensCleanupJob) Handle(ctx context.Context, _ string, _ job.ProgressReporter) (string, error) {
-	// Don't remove PAT / SAT as they were explicitly created and are manged by user.
+	// Don't remove PAT / SAT as they were explicitly created and are managed by user.
 	expiredBefore := time.Now().Add(-tokenRetentionTime)
 	log.Ctx(ctx).Info().Msgf(
 		"start purging expired tokens (expired before: %s)",

@@ -22,7 +22,7 @@ import { StringsContext, StringsContextValue } from './StringsContext'
 export interface StringsContextProviderProps extends Pick<StringsContextValue, 'getString'> {
   children: React.ReactNode
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  initialStrings?: Record<string, any> // temp prop for backward compatability
+  initialStrings?: Record<string, any> // temp prop for backward compatibility
 }
 
 export function StringsContextProvider(props: StringsContextProviderProps): React.ReactElement {

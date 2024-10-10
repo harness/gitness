@@ -635,7 +635,7 @@ expired: Expired
 expirationDate: Expiration Date
 created: Created
 thisRefHas: 'This {isTag|true:tag,branch} has'
-changePasswordSuccesfully: Password changed successfully
+changePasswordSuccessfully: Password changed successfully
 applyChanges: Apply Changes
 showMore: View more
 showLess: View less

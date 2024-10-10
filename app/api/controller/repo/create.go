@@ -143,7 +143,7 @@ func (c *Controller) Create(ctx context.Context, session *auth.Session, in *Crea
 			return nil, fmt.Errorf("failed to set repo public access (and repo purge: %w): %w", dErr, err)
 		}
 
-		return nil, fmt.Errorf("failed to set repo public access (succesfull cleanup): %w", err)
+		return nil, fmt.Errorf("failed to set repo public access (successful cleanup): %w", err)
 	}
 
 	// backfil GitURL

@@ -28,7 +28,7 @@ var (
 )
 
 // ServiceAccountParent verifies the remaining fields of a service account
-// that aren't inhereted from principal.
+// that aren't inherited from principal.
 func ServiceAccountParent(parentType enum.ParentResourceType, parentID int64) error {
 	if parentType != enum.ParentResourceTypeRepo && parentType != enum.ParentResourceTypeSpace {
 		return ErrServiceAccountParentTypeIsInvalid
