@@ -26,7 +26,7 @@ See [developer.harness.com](https://developer.harness.io/docs/open-source) to le
 
 ## Where is Drone?
 
-Harness Open Source represents a massive investment in the next generation of Drone. Where Drone focused solely on continuous integration, Harness adds source code hosting, developer environments (gitspaces), and artifact regestries; providing teams with an end-to-end, open source DevOps platform.
+Harness Open Source represents a massive investment in the next generation of Drone. Where Drone focused solely on continuous integration, Harness adds source code hosting, developer environments (gitspaces), and artifact registries; providing teams with an end-to-end, open source DevOps platform.
 
 The goal is for Harness to eventually be at full parity with Drone in terms of pipeline capabilities, allowing users to seemlessly migrate from Drone to Harness.
 
